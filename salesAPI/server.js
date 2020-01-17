@@ -33,7 +33,7 @@ app.post("/api/sales", (req, res) => {
         .then(()=>
             res.status(201).json(`New sale added ${req.body.myData}`)
         )
-        .catch(
+        .catch(()=>
             res.status(404).json({ message: "Resource not found" })
         )
   });
@@ -53,14 +53,15 @@ app.get("/api/sales", (req, res) => {
 
 
 // GET /api/sales (NOTE: This route must accept a numeric route parameter, ie: /api/sales/5bd761dcae323e45a93ccfe8)
-app.get("/api/sales", (req, res) => {
+app.get("/api/sales/:id", (req, res) => {
     myData
-        .getSaleById(req.param.id)
+        .getSaleById(req.params.id)
         .then((data) =>
             res.status(200).json({data})
         )
-        .catch()
-            res.status(404).end();
+        .catch(()=>
+            res.status(404).end()
+        )
   });
 
 
